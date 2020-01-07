@@ -44,7 +44,7 @@ func init() {
 	db.SetConnMaxLifetime(7 * time.Hour) // 设置最大生成周期是7个小时
 	database.checkErr(err)
 	GlobalDb = db
-	log.Println("init connection success!!!")
+	log.Info("init connection success!!!")
 }
 
 /**

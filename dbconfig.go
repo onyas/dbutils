@@ -2,12 +2,12 @@ package dbutils
 
 import (
 	"fmt"
-	"github.com/BurntSushi/toml"
-	"log"
 	"os"
 	"path/filepath"
 	"strings"
 	"sync"
+
+	"github.com/BurntSushi/toml"
 )
 
 type DBCfg struct {
@@ -30,7 +30,7 @@ func DBConfig() *DBCfg {
 func GetMySqlFilePath() string {
 	currentPath, err := os.Getwd()
 	if err != nil {
-		log.Fatal("获取目录失败")
+		log.Info("获取目录失败")
 	}
 	if strings.HasSuffix(currentPath, "App") {
 		return strings.ReplaceAll(currentPath, "App", "Config") + "/postgres.toml"
