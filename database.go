@@ -166,7 +166,7 @@ func (Postgres Database) Delete(tableName string) int64 {
 /**
 插入方法
 */
-func (Postgres Database) Insert(tableName string, data map[string]string) int64 {
+func (Postgres Database) Insert(tableName string, data map[string]interface{}) int64 {
 	var allField = ""
 	var allValue = ""
 	var allTrueValue []interface{}
