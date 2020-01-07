@@ -5,7 +5,7 @@ import (
 	"fmt"
 	//_ "github.com/go-sql-driver/mysql"
 	_ "github.com/lib/pq"
-	"log"
+	"github.com/op/go-logging"
 	"math"
 	"strconv"
 	"strings"
@@ -13,6 +13,7 @@ import (
 	"time"
 )
 
+var log = logging.MustGetLogger("dbutils.log")
 var DbPool *sync.Pool
 var GlobalDb *sql.DB
 
@@ -43,6 +44,7 @@ func init() {
 	db.SetConnMaxLifetime(7 * time.Hour) // 设置最大生成周期是7个小时
 	database.checkErr(err)
 	GlobalDb = db
+	log.Println("init connection success!!!")
 }
 
 /**
@@ -180,6 +182,7 @@ func (Postgres Database) Insert(tableName string, data map[string]string) int64 
 	allValue = "(" + allValue + ")"
 	allField = "(" + allField + ")"
 	var theStr = "insert into " + tableName + " " + allField + " values " + allValue
+	log.Debug(theStr)
 	stmt, err := Postgres.conn.Prepare(theStr)
 	Postgres.checkErr(err)
 	res, err := stmt.Exec(allTrueValue...)
