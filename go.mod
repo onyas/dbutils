@@ -1,4 +1,4 @@
-module github/onyas/dbutils
+module github.com/onyas/dbutils
 
 go 1.13
 
