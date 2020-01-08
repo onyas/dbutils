@@ -183,17 +183,17 @@ func (Postgres Database) Insert(tableName string, data map[string]interface{}) i
 	allField = strings.TrimSuffix(allField, ",")
 	allValue = "(" + allValue + ")"
 	allField = "(" + allField + ")"
-	var theStr = "insert into " + tableName + " " + allField + " values " + allValue
+	var theStr = "insert into " + tableName + " " + allField + " values " + allValue + " RETURNING id"
 	log.Debug(theStr)
 	stmt, err := Postgres.conn.Prepare(theStr)
 	Postgres.checkErr(err)
-	res, err := stmt.Exec(allTrueValue...)
+	var id int64
+	err = stmt.QueryRow(allTrueValue...).Scan(&id)
 	if err != nil {
 		fmt.Println(err.Error())
 		return 0
 	}
 	Postgres.checkErr(err)
-	id, err := res.LastInsertId()
 	return id
 }
 
