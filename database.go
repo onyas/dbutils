@@ -171,10 +171,12 @@ func (Postgres Database) Insert(tableName string, data map[string]interface{}) i
 	var allValue = ""
 	var allTrueValue []interface{}
 	if len(data) != 0 {
+		i := 1
 		for key, value := range data {
 			allField += key + ","
-			allValue += "?" + ","
+			allValue += "$" + strconv.Itoa(i) + ","
 			allTrueValue = append(allTrueValue, value)
+			i++
 		}
 	}
 	allValue = strings.TrimSuffix(allValue, ",")
